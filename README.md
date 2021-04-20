@@ -8,3 +8,4 @@ Using an LSTM, generate a book based on a film script.
 * https://www.kaggle.com/parthplc/movie-scripts - Film script dataset
 * https://nlds.soe.ucsc.edu/fc2 - Film script dataset
 * https://imsdb.com/ - Film script dataset
+	* https://github.com/cdpierse/script_buddy_v2 - IMSDb scraper

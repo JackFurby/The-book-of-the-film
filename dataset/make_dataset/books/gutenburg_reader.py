@@ -23,6 +23,7 @@ for i in tqdm(range(len(bookfiles))):
 	g.load(bookfiles[i])
 
 	book = {}
+	book["fiction"] = False
 	for subj, pred, obj in g:
 		if pred == dctermsNs.title:
 			book["title"] = str(obj)
@@ -32,9 +33,16 @@ for i in tqdm(range(len(bookfiles))):
 		if obj == pgtermsNs.file:
 			if subj[-4:] == '.txt':
 				book["link"] = str(subj)
-	#print(book)
-
-	bookList.append(book)
+		# If RDF tag contans 'fiction' make the book as such
+		if "fiction" in subj or "pred" in subj or "fiction" in obj:
+			book["fiction"] = True
+		# If we have 4 values and fiction has changed then we have all we need from the RDF graph
+		if len(book) == 4 and book["fiction"]:
+			continue
+	# We only want to add fixtion books to the list
+	if book["fiction"]:
+		bookList.append(book)
 
 for i in bookList:
 	print(i)
+print(len(bookList))
